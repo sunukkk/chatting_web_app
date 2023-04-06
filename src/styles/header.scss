@@ -17,9 +17,13 @@ body{
     &.chatting{
       height: 32px;
     }
-  }
 
+    &.profile{
+      background: transparent
+    }
+  }
 }
+
 
 .status_bar {
   display: flex;

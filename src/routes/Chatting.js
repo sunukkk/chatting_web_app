@@ -37,7 +37,7 @@ function Chatting({userObj}) {
   const onSubmit = async (e) =>{
     e.preventDefault();
 
-    if(!chat) return;
+    if(!chat && !attachment) return;
 
     try{
       let attachmentUrl = "";

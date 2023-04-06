@@ -8,10 +8,12 @@ import Home from './routes/Home'
 import Chats from './routes/Chats';
 import Find from './routes/Find';
 import More from './routes/More';
-import Profile from './routes/Profile';
+import MyProfile from './routes/MyProfile';
 import Chatting from './routes/Chatting';
+import Profile from './routes/Profile';
 
-import data from './data/friend.json';
+import friends from './data/friend.json';
+
 
 
 
@@ -19,6 +21,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   const [userObj, setUserObj] = useState(null)
 
+  console.log(userObj)
   useEffect(() =>{
     onAuthStateChanged(authService, (user) =>{
       if(user) {
@@ -37,11 +40,12 @@ function App() {
     <BrowserRouter basename={process.env.PUBLIC_URL} >
       {isLoggedIn ? (
         <Routes>
-          <Route path="/" element={<Home data={data} userObj = {userObj}/>} />
-          <Route path="/chats" element={<Chats data={data} />} />
+          <Route path="/" element={<Home friends={friends} userObj = {userObj}/>} />
+          <Route path="/chats" element={<Chats friends={friends} />} />
           <Route path="/find" element={<Find />} />
           <Route path="/more" element={<More userObj = {userObj} />} />
-          <Route path="/profile" element={<Profile userObj={userObj} setUserObj={setUserObj}/>} />
+          <Route path="/profile" element={<Profile friends={friends} />} />
+          <Route path="/myprofile" element={<MyProfile userObj={userObj} setUserObj={setUserObj}/>} />
           <Route path="/chatting" element={<Chatting userObj={userObj} />}  />
           
         </Routes>

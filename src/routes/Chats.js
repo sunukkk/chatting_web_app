@@ -8,7 +8,7 @@ import '../styles/chats.scss'
 import '../styles/tab.scss'
 
 
-function Chats({data}) {
+function Chats({friends}) {
 
   return (
     <body>
@@ -25,13 +25,13 @@ function Chats({data}) {
           <section className="main_section">
             <header><h2>Friends</h2></header>
             <ul>
-              {data.map((friend, index) => 
+              {friends.map((friends, index) => 
                 <li key={index}>
                 <Link to ={"/chatting"}>
-                  <span className="chats_img empty" style = {{backgroundImage : `url(${friend.profileImg})`}}></span>
+                  <span className="chats_img empty" style = {{backgroundImage : `url(${friends.profileImg})`}}></span>
                   <span className="chats_cont">
-                    <span className="chats_name">{friend.name}</span>
-                    <span className="chats_latest">{friend.lastChat}</span>
+                    <span className="chats_name">{friends.name}</span>
+                    <span className="chats_latest">{friends.lastChat}</span>
                   </span>
                   <span className="chats_time"><span>00</span>:<span>00</span></span>
                 </Link>

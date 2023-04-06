@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 
 import '../styles/home.scss'
 
-function Home({data}, userObj) {
-    
+function Home({friends, userObj}) {
+
   return (
     <body>
      <Header left="Manage" title="friends" span="1" right={<BsFillGearFill />} /> 
@@ -25,9 +25,9 @@ function Home({data}, userObj) {
         <header><h2>My Profile</h2></header>
         <ul>
           <li>
-            <Link to="/profile">
-              <span className="profile_img empty"  style = {{backgroundImage : userObj.photoURL ? `url(${userObj.photoURL})` : '' }}></span>
-              <span className="profile_name">{userObj.displayName}</span>
+            <Link to="/myprofile">
+              <span className="profile_img empty"  style = {userObj.photoURL ? {backgroundImage: `url(${userObj.photoURL})`} : {backgroundImage: ''}}></span>
+              <span className="profile_name">{`${userObj.displayName}`}</span>
            </Link>
           </li>
         </ul>
@@ -36,12 +36,12 @@ function Home({data}, userObj) {
       <section className="main_section">
         <header><h2>Friends</h2></header>
         <ul>
-          {data.map((friend, index) => 
+          {friends.map((friends, index) => 
             <li key={index}>
-            <Link to={'/profile'} state = {{name : friend.name, email : friend.email, profileImg : friend.profileImg, profileBg : friend.profileBg}}>
-              <span className="profile_img empty" style = {{backgroundImage : `url(${friend.profileImg})`}}></span>
-              <span className="profile_name">{friend.name}</span>
-              <span className="profile_messages">{friend.catchPhrase}</span>
+            <Link to={'/profile'} state = {{name : friends.name, email : friends.email, profileImg : friends.profileImg, profileBg : friends.profileBg}}>
+              <span className="profile_img empty" style = {{backgroundImage : `url(${friends.profileImg})`}}></span>
+              <span className="profile_name">{friends.name}</span>
+              <span className="profile_messages">{friends.catchPhrase}</span>
             </Link>
           </li>
           )}
