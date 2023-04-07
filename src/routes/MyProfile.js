@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { updateProfile } from 'firebase/auth';
-import { v4 as uuidv4 } from 'uuid';
 import { ref, uploadString, getDownloadURL, deleteObject  } from "firebase/storage";
 import { db, storage } from '../fbase';
-import { addDoc, collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy, query, deleteDoc, getDocs } from 'firebase/firestore';
 
 import '../styles/profile.scss'
 import { FaTimes, FaUserAlt } from 'react-icons/fa';
@@ -58,7 +57,7 @@ function MyProfile({userObj}) {
       let newProfileImgUrl = "";
 
       if(newProfileImg !== ""){
-        const storageRef = ref(storage, `${userObj.uid}/${uuidv4()}`);
+        const storageRef = ref(storage, `${userObj.uid}/profileImg`);
         const response = await uploadString(storageRef, newProfileImg, 'data_url');
         newProfileImgUrl = await getDownloadURL(ref(storage, response.ref))
         await updateProfile(userObj,{
@@ -93,6 +92,8 @@ function MyProfile({userObj}) {
     orderBy("createdAt", "desc")) 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = [];
+      newArray.splice(0, newArray.length)
+
       querySnapshot.forEach((doc) => {
         newArray.push({ ...doc.data(), id: doc.id });
       });
@@ -125,7 +126,7 @@ function MyProfile({userObj}) {
     try{
       let newBgImgUrl = "";
       if(newBgImg !==""){
-        const storageRef = ref(storage, `${userObj.uid}/${uuidv4()}`);
+        const storageRef = ref(storage, `${userObj.uid}/ProfileBgImg`);
         const response = await uploadString(storageRef, newBgImg, 'data_url');
         newBgImgUrl = await getDownloadURL(ref(storage, response.ref))
       }
@@ -142,10 +143,27 @@ function MyProfile({userObj}) {
     }
   }
   
-  const onBgRemoveClick = () =>{
+  const onBgRemoveClick = async () => {
+    const ok = window.confirm("프로필 배경화면을 삭제하시겠습니까?")
+    if(ok){
+      try {
+        const storageRef = ref(storage, `${userObj.uid}/ProfileBgImg`);
+        await deleteObject(ref(storage, storageRef));
 
+        const docRef = query(collection(db, `${userObj.uid}`));
+        const snapshot = await getDocs(docRef);
+        snapshot.forEach((doc) => {
+          deleteDoc(doc.ref);
+        });
+
+        setNewBgImg("");
+
+      } catch (error) {
+        console.error("Error removing background image: ", error);
+      }
+      
+    }  
   }
-
   
   return (
     
@@ -156,7 +174,7 @@ function MyProfile({userObj}) {
     
     <main className='profile-main'>
     
-      <section className="background" style={{backgroundImage: `url(${newBgImg})`}}>
+      <section className="background" style={newBgImg ? {backgroundImage: `url(${newBgImg})`} :{backgroundImage: ''} }>
         <form onSubmit={onBgImgSubmit}>
           <input type="file" accept="image/*" onChange={onBgFileChange}/>
           <input type="submit" value="Update Profile Background Image" />

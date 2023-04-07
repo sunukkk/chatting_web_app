@@ -26,8 +26,8 @@ function Home({friends, userObj}) {
         <ul>
           <li>
             <Link to="/myprofile">
-              <span className="profile_img empty"  style = {userObj.photoURL ? {backgroundImage: `url(${userObj.photoURL})`} : {backgroundImage: ''}}></span>
-              <span className="profile_name">{`${userObj.displayName}`}</span>
+              <span className="profile_img empty" style = {userObj.photoURL ? {backgroundImage: `url(${userObj.photoURL})`} : {backgroundImage: ''}}></span>
+              <span className="profile_name">{`${userObj.displayName || "Enter your name in Here"}`}</span>
            </Link>
           </li>
         </ul>
