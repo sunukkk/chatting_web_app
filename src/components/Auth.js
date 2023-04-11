@@ -3,8 +3,6 @@ import {authService} from '../fbase'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 
 
-
-
 function Auth() {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
@@ -36,7 +34,6 @@ const onSubmit = async (e) => {
       console.log('error->', error);
       setError(error.message)
   }
-
 }
 
 const toggleAccount = () => setNewAccount(prev => !prev)

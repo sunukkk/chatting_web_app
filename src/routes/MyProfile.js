@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { updateProfile } from 'firebase/auth';
 import { ref, uploadString, getDownloadURL, deleteObject  } from "firebase/storage";
 import { db, storage } from '../fbase';
-import { addDoc, collection, onSnapshot, orderBy, query, deleteDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy, query, updateDoc, deleteField } from 'firebase/firestore';
 
 import '../styles/profile.scss'
 import { FaTimes, FaUserAlt } from 'react-icons/fa';
@@ -15,7 +15,8 @@ function MyProfile({userObj}) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL)
   const [newBgImg, setNewBgImg] = useState("")
-
+  console.log(userObj)
+  console.log('newBgImg ->', newBgImg)
 
   const onDisplayNameChange = e => {
     const {target: {value}} = e;
@@ -23,7 +24,7 @@ function MyProfile({userObj}) {
   };
 
 
-  const onEditClick = async e =>{
+  const onEditClick = async () =>{
     try{
       if(userObj.displayName !== newDisplayName ){
         await updateProfile(userObj,{
@@ -33,17 +34,19 @@ function MyProfile({userObj}) {
     } catch (e){
       console.error("Error adding document: ", e);
     }
-    console.log(userObj)
   }
   
   const onFileChange = (e) =>{
     const {target: {files}} = e;
     const theFile = files[0]
-    console.log('theFile ->', theFile)
+
+    if(!theFile){
+      return;
+    }
+
 
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) =>{
-      console.log('finishedEvent =>', finishedEvent)
       const {currentTarget:{result}} = finishedEvent;
       setNewProfileImg(result);
     }
@@ -67,7 +70,6 @@ function MyProfile({userObj}) {
     } catch (e){
       console.error("Error adding document: ", e);
     }
-    console.log({newProfileImg})
   }
 
   const onRemoveClick = async () => {
@@ -97,7 +99,7 @@ function MyProfile({userObj}) {
       querySnapshot.forEach((doc) => {
         newArray.push({ ...doc.data(), id: doc.id });
       });
-      console.log(newArray);
+
       if (newArray.length > 0) {
         setNewBgImg(newArray[0].newBgImgUrl);
       }
@@ -110,6 +112,8 @@ function MyProfile({userObj}) {
     const {target: {files}} = e;
     const theBgFile = files[0]
     console.log('theBgFile ->', theBgFile)
+
+    if(!theBgFile)return;
 
     const BgReader = new FileReader();
     BgReader.onloadend = (finishedEvent) =>{
@@ -140,29 +144,31 @@ function MyProfile({userObj}) {
   
     } catch (e){
       console.error("Error adding document: ", e);
+     
     }
+    
   }
   
   const onBgRemoveClick = async () => {
     const ok = window.confirm("프로필 배경화면을 삭제하시겠습니까?")
     if(ok){
       try {
+        setNewBgImg(''); 
         const storageRef = ref(storage, `${userObj.uid}/ProfileBgImg`);
         await deleteObject(ref(storage, storageRef));
 
-        const docRef = query(collection(db, `${userObj.uid}`));
-        const snapshot = await getDocs(docRef);
-        snapshot.forEach((doc) => {
-          deleteDoc(doc.ref);
-        });
-
-        setNewBgImg("");
+        const docRef = ref(db,`${userObj.uid}`);
+        await updateDoc(docRef, {
+          newBgImgUrl: deleteField()
+        })
+        
 
       } catch (error) {
         console.error("Error removing background image: ", error);
       }
       
-    }  
+    } 
+
   }
   
   return (
@@ -174,7 +180,7 @@ function MyProfile({userObj}) {
     
     <main className='profile-main'>
     
-      <section className="background" style={newBgImg ? {backgroundImage: `url(${newBgImg})`} :{backgroundImage: ''} }>
+      <section className="background" style={newBgImg ? {backgroundImage: `url(${newBgImg})`} : {backgroundImage:null}}>
         <form onSubmit={onBgImgSubmit}>
           <input type="file" accept="image/*" onChange={onBgFileChange}/>
           <input type="submit" value="Update Profile Background Image" />

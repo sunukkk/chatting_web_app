@@ -9,7 +9,9 @@ function Header({left, title, span, right, isProfile}) {
   if(right === undefined){right = ''}
 
   const headerClassName = isProfile ? 'header profile' : 'header';
-
+  const time = new Date()
+  const nowHour = time.getHours();
+  const nowMinutes = time.getMinutes();
   return (
     
   <body>
@@ -21,7 +23,7 @@ function Header({left, title, span, right, isProfile}) {
         </div>
 
         <div className="center_item">
-          <span>00</span>:<span>00</span>   
+          <span>{nowHour}</span> : <span>{nowMinutes}</span>   
         </div>
 
         <div className="right_item">

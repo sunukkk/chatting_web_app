@@ -10,13 +10,13 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import '../styles/chatting.scss'
 
 function Chatting({userObj}) {
-    
+    console.log(userObj)
   const [chat, setChat] = useState("");
   const [chats, setChats] = useState([]);
   const [attachment, setAttachment] = useState("");
 
   useEffect(() => {
-    const q = query(collection(db, "chats"),
+    const q = query(collection(db, userObj.uid),
                     orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = [];
@@ -47,13 +47,14 @@ function Chatting({userObj}) {
         console.log('response -->', response)
       attachmentUrl = await getDownloadURL(ref(storage, response.ref))
       }
-      const docRef = await addDoc(collection(db, "chats"), {
+      const docRef = await addDoc(collection(db,            userObj.uid         ), {
         text: chat,
         createdAt: Date.now(),
         creatorId: userObj.uid,
         attachmentUrl
       });
       console.log("Document written with ID: ", docRef.id);
+      
     } catch (e){
       console.error("Error adding document: ", e);
     }
@@ -140,26 +141,24 @@ function Chatting({userObj}) {
     <footer>
       
       <form onSubmit={onSubmit}>
-      
-      <fieldset className="text_box">
-        <legend className="blind">채팅입력창</legend>
-          <label htmlFor="upload-file" className='plus_btn'>
-            <i class="fa-solid fa-plus"></i>
-          </label>
-          <input type='file' accept='image/*' name='plus_btn' id='upload-file' onChange={onFileChange}
-          ></input>
-          <label htmlFor="upload-file" className="blind">채팅 입력</label>
-          <input type="text" id="chatting" className="text_field" value = {chat} onChange={onChange}/>
-          <input type="submit" />
-          <span className="emoticon_btn"><a href="#"><i className="fa-regular fa-face-smile"></i></a></span>
-          <span className="voice_btn"><a href="#"><i className="fa-solid fa-microphone"></i></a></span>
-          {attachment &&(
-            <div className='attachment'>
-              <img className='attachment_img' src={attachment} width='100' height='100' alt=""/>
-              <button onClick={onclearAttachment}>Remove</button>
-            </div>
-          )}
-      </fieldset>
+        <fieldset className="text_box">
+          <legend className="blind">채팅입력창</legend>
+            <label htmlFor="upload-file" className='plus_btn'>
+              <i class="fa-solid fa-plus"></i>
+            </label>
+            <input type='file' accept='image/*' name='plus_btn' id='upload-file' onChange={onFileChange} />
+            <label htmlFor="upload-file" className="blind">채팅 입력</label>
+            <input type="text" id="chatting" className="text_field" value = {chat} onChange={onChange}/>
+            <input type="submit" />
+            <span className="emoticon_btn"><a href="#"><i className="fa-regular fa-face-smile"></i></a></span>
+            <span className="voice_btn"><a href="#"><i className="fa-solid fa-microphone"></i></a></span>
+            {attachment &&(
+              <div className='attachment'>
+                <img className='attachment_img' src={attachment} width='100' height='100' alt=""/>
+                <button onClick={onclearAttachment}>Remove</button>
+              </div>
+            )}
+        </fieldset>
       </form>
     </footer>
     

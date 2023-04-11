@@ -16,7 +16,6 @@ import friends from './data/friend.json';
 
 
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   const [userObj, setUserObj] = useState(null)
@@ -50,7 +49,7 @@ function App() {
           
         </Routes>
       ) : (
-        <Auth />
+        <Auth/>
       )}
     </BrowserRouter>
 

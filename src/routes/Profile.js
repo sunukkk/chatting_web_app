@@ -1,5 +1,5 @@
 
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import '../styles/profile.scss'
 
 import { FaTimes  } from 'react-icons/fa';
@@ -22,7 +22,7 @@ function Profile() {
       </section>
 
       <section className="profile">
-        <h2 className="blind">My Profile info</h2>
+        <h2 className="blind">Profile info</h2>
         <div className="profile_center_img empty" style={{backgroundImage: `url(${profileImg})`}}>
         </div>
 

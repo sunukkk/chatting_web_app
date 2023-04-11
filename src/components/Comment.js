@@ -4,10 +4,9 @@ import { db, storage } from '../fbase';
 import { ref, deleteObject } from "firebase/storage";
 
 function Comment(props) {
-  const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, prevCreatedAt} = props;
+  const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, userObj} = props;
   const [editing, setEditing] = useState(false)  
   const [newComment, setNewComment] = useState(text)
-  const [attachment, setAttachment] = useState("")
 
   const createdAtDate = new Date(createdAt)
   const chatHour = createdAtDate.getHours();
@@ -18,7 +17,7 @@ function Comment(props) {
   const onDeleteClcik = async (e) =>{
     const ok = window.confirm("삭제하시겠습니까?")
      if(ok) {
-      await deleteDoc(doc(db, "chats", `/${id}`));
+      await deleteDoc(doc(db, userObj.uid, `/${id}`));
       if(attachmentUrl !==""){
         const desertRef = ref(storage, attachmentUrl);
         await deleteObject(desertRef);
@@ -37,7 +36,7 @@ function Comment(props) {
     e.preventDefault();
   
  
-    const newCommentRef = doc(db, "chats", id);
+    const newCommentRef = doc(db, userObj.uid, id);
   
     await updateDoc(newCommentRef, {
       text: newComment,

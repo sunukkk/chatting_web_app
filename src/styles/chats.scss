@@ -1,25 +1,5 @@
 @import url(common.scss);
 
-.tab_bar{
-
-  >ul{
-
-    >li.on{
-
-      &:nth-child(2){
-
-        >a{
-          color: #513736;}
-
-      }
-    }
-  }
-}
-
-
-
-
-
 main{
   height: 85.8em;
   padding: 64px 0;

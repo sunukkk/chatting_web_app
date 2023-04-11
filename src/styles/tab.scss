@@ -18,14 +18,23 @@
       text-align: center;
       transition:transform 500ms linear 0s;
       border:1px solid red;
-
+      
       >a{
         color: #c0c1c2;
 
+        &.on{
+             color: #513736;
+        }
+
         >i{
+          pointer-events: none;
           display:block;
           font-size: 22px;
 
+        }
+        >span{
+          display: inline-block;
+          width: 100%;
         }
       }
       &:hover{
