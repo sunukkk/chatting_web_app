@@ -12,18 +12,22 @@ function Comment(props) {
   const chatHour = createdAtDate.getHours();
   const chatMin = createdAtDate.getMinutes();
 
-
-
-  const onDeleteClcik = async (e) =>{
-    const ok = window.confirm("삭제하시겠습니까?")
-     if(ok) {
-      await deleteDoc(doc(db, userObj.uid, `/${id}`));
-      if(attachmentUrl !==""){
-        const desertRef = ref(storage, attachmentUrl);
-        await deleteObject(desertRef);
+  const onDeleteClick = async (id) => {
+    const ok = window.confirm("삭제하시겠습니까?");
+    if (ok) {
+      try {
+        await deleteDoc(doc(db, userObj.uid, id));
+        if (attachmentUrl !== "") {
+          const desertRef = ref(storage, attachmentUrl);
+          await deleteObject(desertRef);
+        }
+      } catch (error) {
+        console.error("Error removing document: ", error);
       }
-     }
+    }
   }
+
+
   
   const toggleEditing = () => setEditing((prev) => !prev)
   
@@ -34,7 +38,6 @@ function Comment(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  
  
     const newCommentRef = doc(db, userObj.uid, id);
   
@@ -64,9 +67,10 @@ function Comment(props) {
           {attachmentUrl && <img src={attachmentUrl} width="120" height ="120" alt="" />}
           {isOwner && (
             <>
-            <form onSub></form>
-              <button onClick={onDeleteClcik}>Delete chat</button>
-              <button onClick={toggleEditing}>Edit chat</button>
+            <form onSubmit={onSubmit}>
+            <button onClick={toggleEditing}>Edit chat</button>
+            </form>              
+              <button onClick={() => onDeleteClick(id)}>Delete chat</button>
             </>
           )}
         </>

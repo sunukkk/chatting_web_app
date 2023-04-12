@@ -12,13 +12,13 @@ function Profile() {
   return (
     <>
     <body>
-    <Header left={<FaTimes />} isProfile="true"/>
+    <Header left={<FaTimes />} isTransparent="true"/>
     <hr />
     
     <main className='profile-main'>
     
       <section className="background" style={{backgroundImage: `url(${profileBg})`}}>
-        <h2 className="blind" >프로필</h2>
+        <h2 className="blind" >Profile</h2>
       </section>
 
       <section className="profile">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { updateProfile } from 'firebase/auth';
 import { ref, uploadString, getDownloadURL, deleteObject  } from "firebase/storage";
 import { db, storage } from '../fbase';
-import { addDoc, collection, onSnapshot, orderBy, query, updateDoc, deleteField } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, deleteField, deleteDoc, setDoc, doc } from 'firebase/firestore';
 
 import '../styles/profile.scss'
 import { FaTimes, FaUserAlt } from 'react-icons/fa';
@@ -13,28 +13,41 @@ import Header from '../components/Header';
 function MyProfile({userObj}) {
   
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
+  const [newProfileMessage, setNewProfileMessage] = useState("")
   const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL)
   const [newBgImg, setNewBgImg] = useState("")
-  console.log(userObj)
-  console.log('newBgImg ->', newBgImg)
 
+  console.log(userObj)
+  
   const onDisplayNameChange = e => {
     const {target: {value}} = e;
     setNewDisplayName(value);
   };
 
+  const onProfileMessageChange = (e) =>{
+    const {target: {value}} = e;
+    setNewProfileMessage(value)
+    
+  }
 
-  const onEditClick = async () =>{
-    try{
-      if(userObj.displayName !== newDisplayName ){
-        await updateProfile(userObj,{
-          displayName:newDisplayName,
-        })
+  const onEditClick = async () => {
+    try {
+      if (userObj.displayName !== newDisplayName) {
+        await updateProfile(userObj, {
+          displayName: newDisplayName,
+        });
+      } else if (newProfileMessage !== "") {
+        const docRef = await setDoc(doc(db, `${userObj.uid}/ProfileMessage`), {
+            creatorId: userObj.uid,
+            createdAt: Date.now(),
+            message: newProfileMessage,
+          }
+        );
       }
-    } catch (e){
+    } catch (e) {
       console.error("Error adding document: ", e);
     }
-  }
+  };
   
   const onFileChange = (e) =>{
     const {target: {files}} = e;
@@ -78,36 +91,38 @@ function MyProfile({userObj}) {
       try {
         const storageRef = ref(storage, userObj.photoURL);
         await deleteObject(storageRef);
-        await updateProfile(userObj, {
-          photoURL: "",
-        })
         ;
       } catch (e) {
         console.error("Error deleting image: ", e);
       }
       setNewProfileImg("");
     }
-  };
-
+  }; 
+  
   useEffect(() => {
-    const q = query(collection(db, `${userObj.uid}`),
-    orderBy("createdAt", "desc")) 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const newArray = [];
-      newArray.splice(0, newArray.length)
-
-      querySnapshot.forEach((doc) => {
-        newArray.push({ ...doc.data(), id: doc.id });
-      });
-
-      if (newArray.length > 0) {
-        setNewBgImg(newArray[0].newBgImgUrl);
+    const bgRef = doc(db, `${userObj.uid}/ProfileBgImg`);
+    const bgUnsubscribe = onSnapshot(bgRef, (doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        setNewBgImg(data.newBgImgUrl);
       }
     });
-      },[userObj.uid]);
-   
 
+    const msgRef = doc(db, `${userObj.uid}/ProfileMessage`);
+    const msgUnsubscribe = onSnapshot(msgRef, (doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        setNewProfileMessage(data.message);
+      }
+    });
 
+    return () => {
+      bgUnsubscribe();
+      msgUnsubscribe();
+    };
+  }, [userObj.uid]);
+
+  
   const onBgFileChange = (e) =>{
     const {target: {files}} = e;
     const theBgFile = files[0]
@@ -134,7 +149,7 @@ function MyProfile({userObj}) {
         const response = await uploadString(storageRef, newBgImg, 'data_url');
         newBgImgUrl = await getDownloadURL(ref(storage, response.ref))
       }
-      const docRef = await addDoc(collection(db, `${userObj.uid}`), {
+      const docRef = await setDoc(doc(db, `${userObj.uid}/ProfileBgImg`), {
         creatorId: userObj.uid,
         createdAt: Date.now(),
         newBgImgUrl
@@ -157,8 +172,8 @@ function MyProfile({userObj}) {
         const storageRef = ref(storage, `${userObj.uid}/ProfileBgImg`);
         await deleteObject(ref(storage, storageRef));
 
-        const docRef = ref(db,`${userObj.uid}`);
-        await updateDoc(docRef, {
+        const docRef = ref(db,`${userObj.uid}/ProfileBgImg`);
+        await deleteDoc(docRef, {
           newBgImgUrl: deleteField()
         })
         
@@ -166,9 +181,7 @@ function MyProfile({userObj}) {
       } catch (error) {
         console.error("Error removing background image: ", error);
       }
-      
     } 
-
   }
   
   return (
@@ -191,8 +204,7 @@ function MyProfile({userObj}) {
       </section>
       <section className="profile">
         <h2 className="blind">My Profile info</h2>
-        <div className="profile_center_img empty" 
-                  style={newProfileImg ? {backgroundImage: `url(${newProfileImg})`} :{backgroundImage: ''}}>
+        <div className="profile_center_img empty" style={newProfileImg ? {backgroundImage: `url(${newProfileImg})`} :{backgroundImage: ''}}>
           <form onSubmit={onImgSubmit}>
             <input type="file" accept='image/*' onChange={onFileChange}/>
             <input type="submit" value="Update Profile Image" />              
@@ -203,7 +215,7 @@ function MyProfile({userObj}) {
         <div className="profile_cont">
           <input type="text" className="profile_name" placeholder="What's your name?" value={newDisplayName} onChange={onDisplayNameChange} />
           <input type="mail" className="profile_email" value={userObj.email} />
-
+          <input type="text" className="profile_message" placeholder="What's on your mind" value={newProfileMessage ? `${newProfileMessage}` : ''} onChange={onProfileMessageChange}/>
           <ul className="profile_menu">
           <li>
             <button>

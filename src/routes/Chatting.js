@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { db, storage } from '../fbase';
 import { collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
 import Comment from "../components/Comment"
@@ -9,8 +9,14 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 import '../styles/chatting.scss'
 
-function Chatting({userObj}) {
-    console.log(userObj)
+function Chatting({ userObj }) {
+    
+ const location = useLocation();
+ const friendName = location.state.friendName
+ 
+ 
+
+
   const [chat, setChat] = useState("");
   const [chats, setChats] = useState([]);
   const [attachment, setAttachment] = useState("");
@@ -47,7 +53,7 @@ function Chatting({userObj}) {
         console.log('response -->', response)
       attachmentUrl = await getDownloadURL(ref(storage, response.ref))
       }
-      const docRef = await addDoc(collection(db,            userObj.uid         ), {
+      const docRef = await addDoc(collection(db, userObj.uid ), {
         text: chat,
         createdAt: Date.now(),
         creatorId: userObj.uid,
@@ -84,6 +90,8 @@ function Chatting({userObj}) {
     e.preventDefault();
     setAttachment("");
   }
+
+  
   return (
     <>
     
@@ -105,7 +113,7 @@ function Chatting({userObj}) {
     </div>
   </div>
   <div className="title_bar">
-    <h1>friendname</h1>
+    <h1>{friendName}</h1>
     <div className="left_item"><Link to = "/chats"><i className="fa-solid fa-angle-left"></i></Link></div>
     <div className="right_item"><a href="#"><i className="fa-solid fa-magnifying-glass"></i><i className="fa-solid fa-bars"></i></a></div>
   </div>
@@ -122,7 +130,7 @@ function Chatting({userObj}) {
       <div className="chat_box other">
         <div className="other_info">
           <a href="#"><span className="chatting_profile_img empty"></span></a>
-          <span className="chatting_profile_name">Friend Name</span>
+          <span className="chatting_profile_name">{friendName}</span>
         </div>
         <span className="chat">And this is an answer</span>
         <span className="chat">And this is an answer And this is an answer</span>
@@ -132,7 +140,7 @@ function Chatting({userObj}) {
       <div>
       {chats.map((chat) => (
         <div key={chat.id}>
-          <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} />
+          <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} userObj={userObj} />
         </div>
       ))}
       </div>

@@ -2,13 +2,13 @@ import React from 'react'
 import '../styles/header.scss'
 import { Link } from 'react-router-dom'
 
-function Header({left, title, span, right, isProfile}) {
+function Header({left, title, span, right, isTransparent}) {
   if(left === undefined){left = ''}
   if(title === undefined){title = ''}
   if(span === undefined){span = ''}
   if(right === undefined){right = ''}
 
-  const headerClassName = isProfile ? 'header profile' : 'header';
+  const headerClassName = isTransparent ? 'header transparent' : 'header';
   const time = new Date()
   const nowHour = time.getHours();
   const nowMinutes = time.getMinutes();
