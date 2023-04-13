@@ -1,5 +1,5 @@
 
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/profile.scss'
 
 import { FaTimes  } from 'react-icons/fa';
@@ -33,11 +33,13 @@ function Profile() {
           <ul className="profile_menu">
           <li>
             <button>
+              <Link to={`/chatting`} state = {{friendName: name}}>
               <span className="icon">
                 <i className="fa-regular fa-comment"></i>
               </span>
               Chatroom
-              </button>
+              </Link>
+            </button>
           </li>
 
           </ul>

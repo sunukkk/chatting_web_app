@@ -14,11 +14,12 @@ function Tab() {
     return location.pathname === `/${tabName}` ? 'on' : '';
   }
 
+ 
   return (
     <nav className="tab_bar">
       <ul>
         <li>
-          <Link to="/" className={setActiveClass('')} onClick={() => tabClick('home')}>
+          <Link to="/" className={setActiveClass('')} onClick={() => tabClick('home')} >
             <i className="fa-solid fa-user"></i><span>Friends</span>
           </Link>
         </li>

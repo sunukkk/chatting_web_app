@@ -1,17 +1,34 @@
 import Header from '../components/Header'
 import Tab from '../components/Tab'
-
-
+import { useEffect, useState } from 'react';
 import { BsFillGearFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 import '../styles/home.scss'
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../fbase';
 
 function Home({friends, userObj}) {
+console.log('friends->', friends )
+  const [newProfileMessage, setNewProfileMessage] = useState("")
+  useEffect(() => {
 
+    const msgRef = doc(db, `${userObj.uid}/ProfileMessage`);
+    const msgUnsubscribe = onSnapshot(msgRef, (doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        setNewProfileMessage(data.message);
+      }
+    });
+
+    return () => {
+      msgUnsubscribe();
+    };
+  }, [userObj.uid]);
+  
   return (
     <body>
-     <Header left="Manage" title="friends" span="1" right={<BsFillGearFill />} /> 
+     <Header left="Manage" title="Friends" span={friends.length} right={<BsFillGearFill />} /> 
     <main>
       <form className="search_box">
         <fieldset className="search_inner">
@@ -28,6 +45,7 @@ function Home({friends, userObj}) {
             <Link to="/myprofile">
               <span className="profile_img empty" style = {userObj.photoURL ? {backgroundImage: `url(${userObj.photoURL})`} : {backgroundImage: ''}}></span>
               <span className="profile_name">{`${userObj.displayName || "Enter your name in Here"}`}</span>
+              <span className="profile_messages">{newProfileMessage ? `${newProfileMessage}` : ''}</span>
            </Link>
           </li>
         </ul>

@@ -29,21 +29,19 @@ function MyProfile({userObj}) {
     setNewProfileMessage(value)
     
   }
-
   const onEditClick = async () => {
     try {
       if (userObj.displayName !== newDisplayName) {
         await updateProfile(userObj, {
           displayName: newDisplayName,
         });
-      } else if (newProfileMessage !== "") {
+      } else {
         const docRef = await setDoc(doc(db, `${userObj.uid}/ProfileMessage`), {
-            creatorId: userObj.uid,
-            createdAt: Date.now(),
-            message: newProfileMessage,
-          }
-        );
-      }
+          creatorId: userObj.uid,
+          createdAt: Date.now(),
+          message: newProfileMessage,
+        });
+      } 
     } catch (e) {
       console.error("Error adding document: ", e);
     }

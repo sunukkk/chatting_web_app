@@ -14,26 +14,22 @@ function Chatting({ userObj }) {
  const location = useLocation();
  const friendName = location.state.friendName
  
- 
-
-
   const [chat, setChat] = useState("");
   const [chats, setChats] = useState([]);
+  
   const [attachment, setAttachment] = useState("");
 
+  
   useEffect(() => {
-    const q = query(collection(db, userObj.uid),
-                    orderBy("createdAt", "desc"));
+    const q = query(collection(db, userObj.uid), orderBy("createdAt"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const newArray = [];
-      querySnapshot.forEach((doc) => {
-        newArray.push({ ...doc.data(), id: doc.id });
-      });
-        setChats(newArray.reverse());
-      });
-    },[]);
+      const newArray = querySnapshot.docs
+        .map((doc) => ({ ...doc.data(), id: doc.id }))
+        .filter((data) => data.text || data.attachmentUrl); // text 또는 attachmentUrl key가 없는 원소들은 제외
+      setChats(newArray);
+    });
+  }, []);
 
-    
   const onChange = e =>{
     e.preventDefault();
     const {target: {value}} = e;

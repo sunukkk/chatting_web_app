@@ -1,6 +1,6 @@
-body{
-  
- >header{
+
+
+ .header_container{
     position:fixed;
     left: 0;
     top: 0;
@@ -8,11 +8,11 @@ body{
     height: 64px;
     display:flex;
     flex-direction: column;
-    background: #513736;
-    color: #fff;
+    background: linear-gradient(0deg, #fff 0%, #dbdbff 100%);
     padding: 0 15px;
     box-sizing: border-box;
     z-index: 100;
+    color: #000;
 
     &.chatting{
       height: 32px;
@@ -22,22 +22,27 @@ body{
       background: transparent
     }
   }
-}
+
 
 
 .status_bar {
+  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 37.5%;
+  
 
   > div {
     flex: 1;
-    border: 1px solid red;
+    padding-top: 3px;
 
     &:nth-child(1) {
-      text-align: left;
+      text-align: right;
+      display:flex;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     &:nth-child(2) {
@@ -46,6 +51,9 @@ body{
 
     &:nth-child(3) {
       text-align: right;
+      display:flex;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     > * {
@@ -64,7 +72,6 @@ body{
     >*{
       flex:1;
       font-size: 16px;
-      border:1px solid red;
     }
 
     >h1{
@@ -81,7 +88,6 @@ body{
       text-align-last: left;
 
       >a{
-        color: #fff;
         opacity: 0.5;
       }
     }
@@ -90,9 +96,6 @@ body{
       order: 3;
       text-align: right;
       font-size: 20px;
-
-      >a{
-        color: #fff;
-      }
+      color: #000;
     }
   }
