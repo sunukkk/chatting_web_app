@@ -1,5 +1,6 @@
   @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
+
 .container {
   display: flex;
   align-items: center;
@@ -165,10 +166,10 @@
 
       > button {
         color: #000;
-        transition: all 1s ease;
+        transition: all 0.5s ease;
         > svg {
           color: #000;
-          transition: all 1s ease;
+          transition: all 0.5s ease;
         }
 
         &:hover {
@@ -180,5 +181,4 @@
       }
     }
   }
-
 }

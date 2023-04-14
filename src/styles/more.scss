@@ -8,10 +8,9 @@ main{
   display:flex;
   align-items: center;
   height: 72px;
-  border-bottom: 1px solid #ebebeb;
 }
 
-.profile_img{
+.more_profile_img{
   width: 50px;
   height: 50px;
 }
@@ -50,7 +49,6 @@ main{
 /* user_menu */
 .user_menu{
   height: 125px;
-  border-bottom: 1px solid #ebebeb;
 
   >ul{
     display:flex;
@@ -86,7 +84,6 @@ main{
 /* plus_friends */
 .plus_friends{
   height: 280px;
-  border-bottom: 1px solid #ebebeb;
   
   >header{
     display:flex;
@@ -94,7 +91,6 @@ main{
     font-size: 16px;
     padding: 5px 15px;
     margin-bottom: 15px;
-    border-bottom: 1px solid #ebebeb;
 
     >span{
       color: #8e9399;

@@ -8,12 +8,12 @@
     height: 64px;
     display:flex;
     flex-direction: column;
-    background: linear-gradient(0deg, #fff 0%, #dbdbff 100%);
     padding: 0 15px;
     box-sizing: border-box;
     z-index: 100;
     color: #000;
-
+    background-color: #fff;
+    
     &.chatting{
       height: 32px;
     }
@@ -79,7 +79,8 @@
       text-align: center;
     
       >span{
-        color: #f8ea65;
+        color: #000;
+        font-weight: bold;
       }
     }
 

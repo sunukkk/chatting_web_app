@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { updateProfile } from 'firebase/auth';
 import { ref, uploadString, getDownloadURL, deleteObject  } from "firebase/storage";
 import { db, storage } from '../fbase';
-import { collection, onSnapshot, orderBy, query, deleteField, deleteDoc, setDoc, doc } from 'firebase/firestore';
+import {onSnapshot, deleteField, deleteDoc, setDoc, doc } from 'firebase/firestore';
 
 import '../styles/profile.scss'
 import { FaTimes, FaUserAlt } from 'react-icons/fa';
@@ -89,12 +89,16 @@ function MyProfile({userObj}) {
       try {
         const storageRef = ref(storage, userObj.photoURL);
         await deleteObject(storageRef);
+        await updateProfile(userObj,{
+          photoURL : ''
+        });
         ;
       } catch (e) {
         console.error("Error deleting image: ", e);
       }
       setNewProfileImg("");
     }
+    console.log('userobj-=-------', userObj)
   }; 
   
   useEffect(() => {

@@ -7,12 +7,10 @@ import { Link } from 'react-router-dom'
 import '../styles/chats.scss'
 import '../styles/tab.scss'
 
-
-
 function Chats({friends}) {
   
   return (
-    <body>
+    <>
       <Header left='Edit' title='Chats' right='' />
         <main>
           <form className="search_box">
@@ -50,7 +48,7 @@ function Chats({friends}) {
           </div>
         </main>
       <Tab />
-      </body>
+    </>
   )
 }
 

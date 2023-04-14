@@ -14,8 +14,8 @@ function Header({left, title, span, right, isTransparent}) {
   const nowMinutes = time.getMinutes();
   return (
 
-    <header className={headerClassName}>
-      <div className="header_container">
+    <header>
+      <div className= {`header_container ${headerClassName}`}>
 
         <div className="status_bar">
           <div className="left_item">

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import '../styles/home.scss'
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../fbase';
+import { FaSearch } from 'react-icons/fa';
 
 function Home({friends, userObj}) {
 console.log('friends->', friends )
@@ -25,15 +26,20 @@ console.log('friends->', friends )
       msgUnsubscribe();
     };
   }, [userObj.uid]);
+
+  const truncate = (str, n) =>{
+    return str?.length > n ? str.substr(0, n-1) + "..." : str;
+  }
   
   return (
-    <body>
-     <Header left="Manage" title="Friends" span={friends.length} right={<BsFillGearFill />} /> 
+    <>
+    <Header left="Manage" title="Friends" span={friends.length} right={<BsFillGearFill />} /> 
+
     <main>
-      <form className="search_box">
-        <fieldset className="search_inner">
+    <form className="search_box">
+      <fieldset className="search_inner">
           <legend className="blind">검색창</legend>
-          <i className="fa-solid fa-magnifying-glass"></i>
+          <FaSearch className='ico'/>
           <input type="search" name="search" id="search" placeholder="Find Friends, chats, Plus Friends" />
         </fieldset>
       </form>
@@ -43,10 +49,11 @@ console.log('friends->', friends )
         <ul>
           <li>
             <Link to="/myprofile">
-              <span className="profile_img empty" style = {userObj.photoURL ? {backgroundImage: `url(${userObj.photoURL})`} : {backgroundImage: ''}}></span>
-              <span className="profile_name">{`${userObj.displayName || "Enter your name in Here"}`}</span>
-              <span className="profile_messages">{newProfileMessage ? `${newProfileMessage}` : ''}</span>
-           </Link>
+              <div className="profile_row empty" style = {userObj.photoURL === null ? {backgroundImage: ''}: {backgroundImage: `url(${userObj.photoURL})`} }>
+                <div className="profile_name">{`${userObj.displayName || "Enter your name in Here"}`}</div>
+                <div className="profile_messages">{truncate(newProfileMessage ? `${newProfileMessage}` : '', 15)}</div>
+              </div>
+            </Link>
           </li>
         </ul>
       </section>
@@ -57,21 +64,23 @@ console.log('friends->', friends )
           {friends.map((friends, index) => 
             <li key={index}>
             <Link to={'/profile'} state = {{name : friends.name, email : friends.email, profileImg : friends.profileImg, profileBg : friends.profileBg}}>
-              <span className="profile_img empty" style = {{backgroundImage : `url(${friends.profileImg})`}}></span>
-              <span className="profile_name">{friends.name}</span>
-              <span className="profile_messages">{friends.catchPhrase}</span>
+              <div className="profile_row empty" style = {{backgroundImage : `url(${friends.profileImg})`}}>
+                <div className="profile_name"><span>{friends.name}</span></div>
+                <div className="profile_messages">{truncate(friends.catchPhrase, 20)}</div>
+              </div>
+              
+              
             </Link>
           </li>
           )}
-            
         </ul>
       </section>
     </main>
+
     <Tab />
     
-    </body>
+    </>
   )
-  
 }
 
 
