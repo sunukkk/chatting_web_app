@@ -3,6 +3,10 @@ import React, { useState } from 'react'
 import { db, storage } from '../fbase';
 import { ref, deleteObject } from "firebase/storage";
 
+import { FaPencilAlt, FaTimes } from 'react-icons/fa';
+import '../styles/comment.scss'
+
+
 function Comment(props) {
   const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, userObj} = props;
   const [editing, setEditing] = useState(false)  
@@ -27,8 +31,6 @@ function Comment(props) {
     }
   }
 
-
-  
   const toggleEditing = () => setEditing((prev) => !prev)
   
   const onChange = e =>{
@@ -49,33 +51,56 @@ function Comment(props) {
     setEditing(false)
   }
 
-  return (
+  const ChatClick = (event) => {
+    const chatCommentForm = event.target.closest('.chat_container').querySelector('.comment_form');
+    if (chatCommentForm) {
+      if (chatCommentForm.classList.contains('active')) {
+        chatCommentForm.classList.remove('active');
+      } else {
+        chatCommentForm.classList.add('active');
+      }
+    }
+  }
+
   
-    <div>
+  return (
+    <>
+    <div className="chat_container" onClick={ChatClick}>
       {editing ? (
         <>
-          <form on onSubmit={onSubmit}>
-            <input type="text" onChange={onChange} value={newComment} />
-            
-            <button>Edit</button>
+          <form onSubmit={onSubmit} className='comment_edit_form'>
+            <input className='comment_edit_textbox' type="text" onChange={onChange} value={newComment} />
+            <label htmlFor="comment_button_edit" className='comment_button_edit'><FaPencilAlt />
+              <button id='comment_buton_cancel' className='blind'>Edit</button>
+            </label>
+            <label htmlFor="comment_buton_cancel" className='comment_buton_cancel'><FaTimes />
+              <button id='comment_buton_cancel' className='blind' onClick={toggleEditing}>Cancel</button>
+            </label>
           </form>
-          <button onClick={toggleEditing}>Cancel</button>
+
         </>
       ) : (
         <>
-          <h4>{text}</h4><span>{chatHour}:{chatMin}</span>
+          <h4>{text}</h4><span className='chat_time'>{chatHour}:{chatMin}</span>
           {attachmentUrl && <img src={attachmentUrl} width="120" height ="120" alt="" />}
           {isOwner && (
             <>
-            <form onSubmit={onSubmit}>
-            <button onClick={toggleEditing}>Edit chat</button>
+            <form className='comment_form' onSubmit={onSubmit}>
+              <label htmlFor="comment_button_edit" className='comment_button_edit'><FaPencilAlt />
+                <button className='blind' id ='comment_button_edit' onClick={toggleEditing}>Edit chat</button>
+              </label>
+              <label htmlFor="comment_button_delete" className='comment_button_delete'><FaTimes />
+                <button className='blind' id='comment_button_delete' onClick={() => onDeleteClick(id)}>Delete chat</button>
+              </label>
+
             </form>              
-              <button onClick={() => onDeleteClick(id)}>Delete chat</button>
             </>
           )}
         </>
       )}
-    </div>
+      </div>
+  </>
+  
   )
 }
 

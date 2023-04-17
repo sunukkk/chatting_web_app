@@ -5,7 +5,6 @@ import Tab from '../components/Tab'
 import { Link } from 'react-router-dom'
 
 import '../styles/chats.scss'
-import '../styles/tab.scss'
 
 function Chats({friends}) {
   

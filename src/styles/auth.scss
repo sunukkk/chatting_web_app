@@ -1,4 +1,4 @@
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 
 
 .container {
@@ -6,9 +6,8 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: rgb(219,219,255);
-  background: radial-gradient(ellipse at 100% 100%, rgba(141,0,0,1) 0%, rgba(255,204,110,1) 20%, rgba(255,230,119,1) 40%, rgba(255,190,201,1) 60%, rgba(255,233,230,1) 80%, rgba(219,219,255,1) 100%);
-  
+  background: #f15c25;
+  background: linear-gradient(0deg, #f15c25 0%, #ffba6c 100%);
 
   .title_container {
     > .titleBg {
@@ -17,7 +16,9 @@
       justify-content: center;
       color: #fff;
       font-size: 250px;
+      margin-bottom: 60px;
       animation: beat 2s infinite;
+
 
       @keyframes beat {
         0% {
@@ -38,9 +39,24 @@
       }
       > span {
         position: absolute;
-        font-family: 'Pacifico', cursive;
-        font-size: 60px;
-        color: #179fff;
+        font-family: 'Dongle', sans-serif;
+        font-size: 76px;
+        color: #742408;
+
+        >.rotateS{
+          display:inline-block;
+          animation: rotate 4s infinite;
+          @keyframes rotate{
+            0% {
+              transform: rotate(0deg)
+            }
+
+            100% {
+              transform: rotate(360deg)
+            }
+          }
+
+        }
       }
     }
 
@@ -54,36 +70,34 @@
         display:flex;
         align-items: center;        
         justify-content: center;
+        width: 80%;
         position: absolute;
         padding: 10px;
         top: -50px;
         left: 50%;
         transform: translate(-50%);
-        border: 1px solid #ffbec9;
         border-radius: 8px;
         background-color: #fff;
         
-        animation: err 3s 2;
+        animation: err 1s 1;
 
         @keyframes err{
           0%{opacity:0} 
           10%{opacity: 1;}
           20%{opacity: 0;}
           30%{opacity: 1;}
-
+          
+          
         }
         }
 
       .input_email,
       .input_password {
         margin: 5px 0;
-        background-color: #1e1e1e;
         border: none;
         line-height: 30px;
         text-align: center;
         border-radius: 8px;
-        border: 1px solid #ffd70a;
-        color: #d4d4d4; /* input text color */
         
         &::placeholder {
           color: #000; /* input placeholder color */
@@ -107,8 +121,8 @@
 
         .input_submit {
           width: 100%;
-          background-color: #179fff;
-          color: #fff;
+          background-color: #fff;
+          color: #000;
           border:none;
           border-radius: 8px;
           padding: 10px;
@@ -119,7 +133,7 @@
           
 
           &:hover {
-            background-color: #7bdcfe;
+            opacity: 0.5;
           }
         }
       }
@@ -133,9 +147,12 @@
       text-align: center;
       color: #000;
       background-color: #fff;
-
+      transition: all 0.5s ease;
       cursor: pointer;
       
+      &:hover{
+        opacity: 0.5
+      }
     }
 
     > div {

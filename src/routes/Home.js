@@ -1,12 +1,12 @@
 import Header from '../components/Header'
 import Tab from '../components/Tab'
 import { useEffect, useState } from 'react';
-import { BsFillGearFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-
-import '../styles/home.scss'
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../fbase';
+
+import '../styles/home.scss'
+import { BsFillGearFill } from 'react-icons/bs';
 import { FaSearch } from 'react-icons/fa';
 
 function Home({friends, userObj}) {
@@ -47,8 +47,8 @@ console.log('friends->', friends )
       <section className="main_section">
         <header><h2>My Profile</h2></header>
         <ul>
-          <li>
-            <Link to="/myprofile">
+          <li className='friend_list'>
+            <Link className='my_profile friend_profile' to="/myprofile">
               <div className="profile_row empty" style = {userObj.photoURL === null ? {backgroundImage: ''}: {backgroundImage: `url(${userObj.photoURL})`} }>
                 <div className="profile_name">{`${userObj.displayName || "Enter your name in Here"}`}</div>
                 <div className="profile_messages">{truncate(newProfileMessage ? `${newProfileMessage}` : '', 15)}</div>
@@ -62,8 +62,8 @@ console.log('friends->', friends )
         <header><h2>Friends</h2></header>
         <ul>
           {friends.map((friends, index) => 
-            <li key={index}>
-            <Link to={'/profile'} state = {{name : friends.name, email : friends.email, profileImg : friends.profileImg, profileBg : friends.profileBg}}>
+            <li key={index} className='friend_list'>
+            <Link className='friend_profile' to={'/profile'} state = {{name : friends.name, email : friends.email, profileImg : friends.profileImg, profileBg : friends.profileBg}}>
               <div className="profile_row empty" style = {{backgroundImage : `url(${friends.profileImg})`}}>
                 <div className="profile_name"><span>{friends.name}</span></div>
                 <div className="profile_messages">{truncate(friends.catchPhrase, 20)}</div>

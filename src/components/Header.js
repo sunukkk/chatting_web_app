@@ -11,7 +11,9 @@ function Header({left, title, span, right, isTransparent}) {
   const headerClassName = isTransparent ? 'header transparent' : 'header';
   const time = new Date()
   const nowHour = time.getHours();
-  const nowMinutes = time.getMinutes();
+  const tmpMinutes = time.getMinutes();
+  const nowMinutes = tmpMinutes < 10 ? '0' + tmpMinutes : tmpMinutes
+
   return (
 
     <header>

@@ -32,7 +32,7 @@
   justify-content: space-between;
   align-items: center;
   height: 37.5%;
-  
+  padding: 0 5px;
 
   > div {
     flex: 1;
@@ -69,6 +69,7 @@
     align-items: center;
     height: 62.5%;
 
+
     >*{
       flex:1;
       font-size: 16px;
@@ -77,9 +78,10 @@
     >h1{
       order:2;
       text-align: center;
+      font-weight: bold;
     
       >span{
-        color: #000;
+        color: #f15c25;
         font-weight: bold;
       }
     }
@@ -89,14 +91,16 @@
       text-align-last: left;
 
       >a{
+        color: #f15c5f;
         opacity: 0.5;
       }
     }
 
     >.right_item{
+      
       order: 3;
       text-align: right;
       font-size: 20px;
-      color: #000;
+      color: #f15c5f;
     }
   }

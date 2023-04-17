@@ -22,22 +22,23 @@ function More({userObj}) {
           <section className="user_info">
           
             <h2 className="blind">사용자 정보</h2>
-            <span className="more_profile_img empty"></span>
+            <span className="more_profile_img empty" style = {userObj.photoURL === null ? {backgroundImage: ''}: {backgroundImage: `url(${userObj.photoURL})`} }></span>
+            
             <span className="profile_info">
               <span className="profile_name">{userObj.displayName}</span>
               <span className="profile_email">{userObj.email}</span>
             </span>
             <span className='logout' onClick={onLogOutClick}><Link to='/'><i class="fa-solid fa-arrow-right-from-bracket"></i></Link></span>
-            <span className="chat_img"><a href="#"><i className="fa-regular fa-comment"></i></a></span>
+            <span className="chat_img"><Link><i className="fa-regular fa-comment"></i></Link></span>
             </section>
         
           <section className="user_menu">
             <h2 className="blind">사용자 메뉴</h2>
               <ul>
-                <li><a href="#"><i className="fa-solid fa-face-smile"></i>Emoticons</a></li>
-                <li><a href="#"><i className="fa-solid fa-paintbrush"></i>Themes</a></li>
-                <li><a href="#"><i className="fa-regular fa-hand-peace"></i>Plus Friend</a></li>
-                <li><a href="#"><i className="fa-solid fa-circle-user"></i>Account</a></li>
+                <li><Link><i className="fa-solid fa-face-smile"></i>Emoticons</Link></li>
+                <li><Link><i className="fa-solid fa-paintbrush"></i>Themes</Link></li>
+                <li><Link><i className="fa-regular fa-hand-peace"></i>Plus Friend</Link></li>
+                <li><Link><i className="fa-solid fa-circle-user"></i>Account</Link></li>
               </ul>
           </section>  
 
@@ -47,26 +48,17 @@ function More({userObj}) {
               <span><i className="fa-solid fa-circle-info"></i>Learn More</span>
             </header>
             <ul className="plus_list">
-              <li><a href="#"><i className="fa-solid fa-utensils"></i>Order</a></li>
-              <li><a href="#"><i className="fa-solid fa-house-chimney"></i>Store</a></li>
-              <li><a href="#"><i className="fa-solid fa-tv"></i>TV Channel/Radio</a></li>
-              <li><a href="#"><i className="fa-solid fa-pencil"></i>Creation</a></li>
-              <li><a href="#"><i className="fa-solid fa-graduation-cap"></i>Education</a></li>
-              <li><a href="#"><i className="fa-solid fa-building-columns"></i>Politics/Society</a></li>
-              <li><a href="#"><i className="fa-solid fa-won-sign"></i>Finance</a></li>
-              <li><a href="#"><i className="fa-solid fa-video"></i>Movies/Music</a></li>
+              <li><Link><i className="fa-solid fa-utensils"></i>Order</Link></li>
+              <li><Link><i className="fa-solid fa-house-chimney"></i>Store</Link></li>
+              <li><Link><i className="fa-solid fa-tv"></i>TV Channel/Radio</Link></li>
+              <li><Link><i className="fa-solid fa-pencil"></i>Creation</Link></li>
+              <li><Link><i className="fa-solid fa-graduation-cap"></i>Education</Link></li>
+              <li><Link><i className="fa-solid fa-building-columns"></i>Politics/Society</Link></li>
+              <li><Link><i className="fa-solid fa-won-sign"></i>Finance</Link></li>
+              <li><Link><i className="fa-solid fa-video"></i>Movies/Music</Link></li>
             </ul>
           </section>
-
-          <section className="more_app">
-            <h2 className="blind">앱 더보기</h2>
-            <ul>
-            <li><a href="#"><span className="app_icon"></span>Kakao Story</a></li>
-            <li><a href="#"><span className="app_icon"></span>Path</a></li>
-            <li><a href="#"><span className="app_icon"></span>Kakao friends</a></li>
-            </ul>
-          </section>
-          </main>
+        </main>
 
       <Tab />
 

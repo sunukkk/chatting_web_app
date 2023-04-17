@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+
 @import url(reset.scss);
 @import url(tab.scss);
 @import url(header.scss);
@@ -26,6 +28,7 @@ img{
   display:block;
   width: 200px;
   height: 60px;
+  border-radius: 50%;
   background: url(../images/empty.jpg) no-repeat;
   background-size: cover;
   background-position: center;

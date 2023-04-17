@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Tab from '../components/Tab'
 import '../styles/find.scss'
 import '../styles/tab.scss'
+import { Link } from 'react-router-dom'
 
 function Find() {
   return (
@@ -11,10 +12,10 @@ function Find() {
 
     <main>
       <ul className="find_method">
-        <li><a href="#"><i className="fa-solid fa-address-book"></i>Find</a></li>
-        <li><a href="#"><i className="fa-solid fa-qrcode"></i>QR Code</a></li>
-        <li><a href="#"><i className="fa-solid fa-mobile-screen-button"></i>Shake</a></li>
-        <li><a href="#"><i className="fa-solid fa-envelope"></i>SNS</a></li>
+        <li><Link><i className="fa-solid fa-address-book"></i>Find</Link></li>
+        <li><Link><i className="fa-solid fa-qrcode"></i>QR Code</Link></li>
+        <li><Link><i className="fa-solid fa-mobile-screen-button"></i>Shake</Link></li>
+        <li><Link><i className="fa-solid fa-envelope"></i>SNS</Link></li>
       </ul>
 
       <section className="recommend_section">

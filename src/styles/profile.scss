@@ -46,14 +46,21 @@ body{
   background: url(../images/bg_default.png) no-repeat 0 0;
   background-size: cover;
   background-position:center;
-
+  overflow: hidden;
 
   form{
     position: absolute;
-    bottom: 20%;
     display:flex;
-    flex-direction: column;
-    width: 300px;
+    width: 20%;
+    bottom: -70px;
+    color: #fff;
+    transition: all 0.3s ease;
+    
+    &.active {
+      bottom: 0;
+    }
+
+
   }
 }
 
@@ -71,6 +78,27 @@ body{
   width: 100px;
   height: 100px;
   margin-left: -50px;
+  
+
+  .profile_img_form{
+    position: absolute;
+    display:flex;
+    left: 0;
+    bottom: 50%;
+    transform: translateY(50%);
+    opacity:0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    
+    &.active{
+      left: 100px;
+      opacity:1;
+      visibility: visible;
+
+    }
+  }
+  
+
 }
 
 .profile_cont{
@@ -102,6 +130,7 @@ body{
     button{
       cursor:pointer;
       display:flex;
+      margin-bottom: 15px;
       flex-direction: column;
       align-items: center;
       font-weight: bold;
@@ -116,10 +145,27 @@ body{
       border-radius: 50%;
       line-height: 52px;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       background-color: #f2f2f2;
       color: #513736;
       font-size: 28px;
     }
   }
+}
+
+label{
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.profile_file{
+  color: #fff;
+}
+
+.profile_submit{
+  color: #1faf5b;
+}
+
+.profile_remove{
+  color: #f54949;
 }

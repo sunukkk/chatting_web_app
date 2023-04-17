@@ -2,13 +2,13 @@
 @import url(common.scss);
 
 /* header */
-body.chatting-body{
+.chatting-body{
   >header{
     color: #000;
-    background-color: #a1c0d5;
+    background: rgb(255, 197, 132)
   }
   .title_bar{
-
+    padding: 0 10px;
     >.left_item{
   
       >a{
@@ -34,8 +34,8 @@ body.chatting-body{
   flex-direction: column;
   min-height: 90vh;
   height: 100%;
-  padding: 64px 0;
-  background: #a1c0d5;
+  background: linear-gradient(180deg, rgb(255, 197, 132) 0%, rgba(255,255,255,1) 100%);
+  padding: 0 5px;
 }
 
 .date_info{
@@ -59,28 +59,44 @@ body.chatting-body{
   line-height: 1;
   margin: 5px;
   padding: 10px 5px;
-  border-radius: 5px;
+  border-radius: 5px 5px 0px 5px;
   background: #fff;
+  
+  box-shadow: -4px 4px 8px 0px #802200 ;
 }
 
 /* my */
+
 .my{
+  padding-top: 20px;
   align-self: flex-end;
   align-items: flex-end;
-  width: 240px;
-  margin-right: 10px;
-
+  
   .chat{
-    background: #ffe73a;
+    background: #ffba6c;
   }
+
   .chat_time{
     position: absolute;
-    left: -30px;
+    left: -35px;
+    bottom: -5px;
+    width: 50px;
+    opacity: 0.5;
+    font-size: 12px;
+  }
+}
+
+
+
+
+  .chat_time{
+    position: absolute;
+    left: -40px;
     bottom: -5px;
     width: 50px;
     opacity: 0.5;
   }
-}
+
 
 /* other */
 .other{
@@ -186,15 +202,21 @@ fieldset.text_box{
     margin-right: 5px;
     line-height: 37px;
     text-align: center;
-    background: #ffe73a;
+    background: #ffba6c;
     color: #513736;
     font-size: 16px;}
 }
 
 .attachment{
   position: absolute;
-  width: 100vw;
+  width: 100%;
   bottom: 42px;
   left: 0;
   background: rgba(0,0,0,0.5);
 }
+
+
+
+
+
+

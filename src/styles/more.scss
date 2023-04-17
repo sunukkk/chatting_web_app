@@ -1,24 +1,26 @@
 
 main{
   height: 85.8%;
-  padding: 64px 0;
 }
 
 .user_info{
   display:flex;
   align-items: center;
   height: 72px;
+  background-color: #fff0de;
 }
 
 .more_profile_img{
   width: 50px;
   height: 50px;
+  margin-left: 15px;
 }
 
 .profile_info{
   flex:auto;
   display:flex;
   flex-direction: column;
+  padding-left: 15px;
 
   .profile_name{
     font-size: 16px;
@@ -26,6 +28,8 @@ main{
   }
 
   .profile_email{
+
+    font-size: 16px;
     color: #8e9399;
   }
 }
@@ -110,53 +114,6 @@ main{
         >i{
           margin: 0 15px;
           font-size: 16px;}
-      }
-    }
-  }
-}
-/* more_app */
-.more_app{
-  padding: 15px;
-
-  >ul{
-    display:flex;
-    flex-direction: row;
-
-    >li{
-      width: 75px;
-
-      >a{
-        display:flex;
-        flex-direction:column;
-        align-items: center;
-        width: 100%;
-      }
-    }
-  }
-
-  li{
-    span.app_icon{
-      display: block;
-      width: 44px;
-      height: 44px;
-      margin-bottom: 10px;
-      background: url(../images/empty.jpg) 0 0 no-repeat;
-      background-size: cover;
-    }
-
-    &:nth-child(1){
-      .app_icon{
-        background-image: url(../images/kakaostory.png);
-      }
-    }
-    &:nth-child(2){
-      .app_icon{
-        background-image: url(../images/path.png);
-      }
-    }
-    &:nth-child(3){
-      .app_icon{
-        background-image: url(../images/kakaofriends.png);
       }
     }
   }

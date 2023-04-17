@@ -1,8 +1,6 @@
-@import url(common.scss);
 
 main{
   height: 87.2%;
-  padding: 64px 0;  
 }
 
 /* 검색창 */
@@ -13,6 +11,7 @@ main{
   align-items: center;
   height: 7.3%;
   min-height: 53px;
+  
 }
 
 .search_inner{
@@ -22,6 +21,7 @@ main{
   width: 88%;
   background-color: #fff;
   border-radius: 5px;
+  box-shadow: #f39a33 0 0 10px;
 
   >.ico{
     font-size: 16px;
@@ -55,18 +55,22 @@ main{
     display:flex;
     flex-direction: column;
 
-    li{
-      margin-bottom: 5px;
+    >li.friend_list{
+      &:nth-child(2n){
+        background-color: #fff;
+      }
+      
 
-      >a{
+      >a.friend_profile, .my_profile{
         display:flex;
         align-items: center;
         justify-content: space-between;
         font-size: 16px;
-
+        margin-bottom: 10px;
+        
         >.profile_row{
           position: relative;
-          border-radius: 0 8px 8px 0;
+          border-radius:8px;
           width: 100%;
           background-position: center;
           background-size: cover;
@@ -96,15 +100,7 @@ main{
             right: 0;
             height: 60px;
             width: 100%;
-            background: linear-gradient(
-              to right,
-              rgba(255,255,255,0) 50%,
-              rgba(255,255,255,1) 100%,
-            ),linear-gradient(
-              to left,
-              rgba(255,255,255,0) 50%,
-              rgba(255,255,255,1) 100%,
-            );
+
             transition: all 0.3s ease;
             opacity: 1;
           }

@@ -1,0 +1,41 @@
+.chat{
+  position: relative;
+
+  .comment_form{
+    position: absolute;
+    top: 10px;
+    left: -50px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+
+    &.active{
+      left: -100px;  
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .comment_button_edit{
+      color: #1faf5b;
+    }
+
+    .comment_button_delete{
+      color: #f54949;
+    }
+  }
+}
+.comment_edit_form{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  
+  .comment_edit_textbox{
+    width: 120px;
+    border:none;
+    background-color: #ffba6c;
+    &:focus, &:active{
+      outline: none;
+      background: #ffd09b;
+    }
+}
+}

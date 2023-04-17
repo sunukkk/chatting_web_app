@@ -1,8 +1,6 @@
-@import url(common.scss);
-
 main{
   height: 85.8em;
-  padding: 64px 0;
+  padding:  64px 0;
 }
 
 /* 검색창 */
@@ -13,6 +11,7 @@ main{
   align-items: center;
   height: 7.3%;
   min-height: 53px;
+  margin-bottom: 10px;
 }
 
 .search_inner{
@@ -46,10 +45,10 @@ main{
 /* main_section */
 .main_section{
   >header{
+    background-color: #fff0de;
     height: 32px;
     line-height: 32px;
     padding-left: 15px;
-    
     border-left:none;
     color: #b6b5b1;
   }
@@ -57,6 +56,9 @@ main{
   >ul{
 
     >li{
+      &:nth-child(2n){
+        background-color: #fff0de ;
+      }
 
       >a{
         display:flex;
@@ -70,8 +72,8 @@ main{
   .chats_img{
     width:50px;
     height: 50px;
-    margin: 15px;
-  }
+    margin: 10px;
+    }
 
   .chats_cont{
     flex:auto;
@@ -84,7 +86,7 @@ main{
     .chats_name{
       color: #000;
       font-weight: bold;
-      margin-bottom: 5px;}
+    }
   }
   .chats_time{
     margin-right: 15px;
@@ -105,7 +107,7 @@ main{
     align-items: center;
     width: 60px;
     height: 60px;
-    background-color: #ffeb4c;
+    background-color: #ffba6c;
     border-radius: 50%;
     box-shadow: 0 2px 6px #0004;
     font-size: 18px;
@@ -121,7 +123,7 @@ main{
   >a{
 
     &:hover{
-      background: #513736;
-      color: #ffe84c;}
+      background: rgb(0, 0, 0);
+      color: #ffba6c;}
   }
 }

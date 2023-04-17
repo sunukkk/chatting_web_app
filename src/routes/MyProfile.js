@@ -5,7 +5,7 @@ import { db, storage } from '../fbase';
 import {onSnapshot, deleteField, deleteDoc, setDoc, doc } from 'firebase/firestore';
 
 import '../styles/profile.scss'
-import { FaTimes, FaUserAlt } from 'react-icons/fa';
+import { FaCheckCircle, FaFileUpload, FaTimes, FaTimesCircle, FaUserAlt } from 'react-icons/fa';
 import Header from '../components/Header';
 
 
@@ -13,9 +13,11 @@ import Header from '../components/Header';
 function MyProfile({userObj}) {
   
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
-  const [newProfileMessage, setNewProfileMessage] = useState("")
-  const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL)
-  const [newBgImg, setNewBgImg] = useState("")
+  const [newProfileMessage, setNewProfileMessage] = useState("");
+  const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL);
+  const [newBgImg, setNewBgImg] = useState("");
+
+
 
   console.log(userObj)
   
@@ -47,6 +49,15 @@ function MyProfile({userObj}) {
     }
   };
   
+
+  const ProfileImgClick = () =>{
+    const profileImgForm = document.querySelector('.profile_img_form');
+    if(profileImgForm.classList.contains('active')){
+      profileImgForm.classList.remove('active')
+    } else {
+      profileImgForm.classList.add('active');}
+  }
+
   const onFileChange = (e) =>{
     const {target: {files}} = e;
     const theFile = files[0]
@@ -81,6 +92,8 @@ function MyProfile({userObj}) {
     } catch (e){
       console.error("Error adding document: ", e);
     }
+    const profileImgForm = document.querySelector('.profile_img_form');
+    profileImgForm.classList.remove('active');
   }
 
   const onRemoveClick = async () => {
@@ -97,8 +110,9 @@ function MyProfile({userObj}) {
         console.error("Error deleting image: ", e);
       }
       setNewProfileImg("");
+      const profileImgForm = document.querySelector('.profile_img_form');
+      profileImgForm.classList.remove('active');
     }
-    console.log('userobj-=-------', userObj)
   }; 
   
   useEffect(() => {
@@ -124,6 +138,14 @@ function MyProfile({userObj}) {
     };
   }, [userObj.uid]);
 
+
+  const BgClick = () =>{
+    const profileBgForm = document.querySelector('.profile_bg_form');
+    if(profileBgForm.classList.contains('active')){
+      profileBgForm.classList.remove('active')
+    } else {
+      profileBgForm.classList.add('active');}
+  }
   
   const onBgFileChange = (e) =>{
     const {target: {files}} = e;
@@ -158,12 +180,14 @@ function MyProfile({userObj}) {
       });
   
       setNewBgImg(newBgImgUrl);
+      const profileBgForm = document.querySelector('.profile_bg_form');
+      profileBgForm.classList.remove('active');
   
     } catch (e){
       console.error("Error adding document: ", e);
      
     }
-    
+
   }
   
   const onBgRemoveClick = async () => {
@@ -189,28 +213,40 @@ function MyProfile({userObj}) {
   return (
     
     <>
-    <Header left={<FaTimes />} right={<FaUserAlt/>} isProfile="true"/>
+    <Header left={<FaTimes />} right={<FaUserAlt/>} isTransparent="true"/>
 
     <body>
     
     <main className='profile-main'>
     
-      <section className="background" style={newBgImg ? {backgroundImage: `url(${newBgImg})`} : {backgroundImage:null}}>
-        <form onSubmit={onBgImgSubmit}>
-          <input type="file" accept="image/*" onChange={onBgFileChange}/>
-          <input type="submit" value="Update Profile Background Image" />
-          <button onClick = {onBgRemoveClick}>Remove</button>
+      <section className="background" style={newBgImg ? {backgroundImage: `url(${newBgImg})`} : {backgroundImage:null}} onClick = {BgClick}>
+      <form className={`profile_bg_form`} onSubmit={onBgImgSubmit}>
+          <label htmlFor="profile_bg_file" className='profile_file'><FaFileUpload/>
+            <input className=' blind' id='profile_bg_file' type="file" accept="image/*" onChange={onBgFileChange}/>
+          </label>
+          <label htmlFor="profile_bg_submit" className='profile_submit'><FaCheckCircle />
+            <input className='blind' id='profile_bg_submit' type="submit" />
+          </label>
+          <label htmlFor="profile_bg_remove" className='profile_remove'><FaTimesCircle />
+            <button className='blind' id='profile_bg_remove' onClick = {onBgRemoveClick}>Remove</button>
+          </label>
         </form>
         
         <h2 className="blind" >프로필</h2>
       </section>
       <section className="profile">
         <h2 className="blind">My Profile info</h2>
-        <div className="profile_center_img empty" style={newProfileImg ? {backgroundImage: `url(${newProfileImg})`} :{backgroundImage: ''}}>
-          <form onSubmit={onImgSubmit}>
-            <input type="file" accept='image/*' onChange={onFileChange}/>
-            <input type="submit" value="Update Profile Image" />              
-            <button onClick = {onRemoveClick}> Remove </button>
+        <div className="profile_center_img empty" style={newProfileImg ? {backgroundImage: `url(${newProfileImg})`} :{backgroundImage: ''}} onClick = {ProfileImgClick}>
+          <form className='profile_img_form' onSubmit={onImgSubmit}>
+            <label htmlFor="profile_file" className='profile_file'><FaFileUpload/>
+            <input className='blind' id='profile_file' type="file" accept='image/*' onChange={onFileChange}/>
+            </label>
+            <label htmlFor="profile_submit" className='profile_submit'><FaCheckCircle />
+            <input className='blind' id='profile_submit' type="submit" value="Update Profile Image" />              
+            </label>
+            <label htmlFor="profile_remove" className='profile_remove'><FaTimesCircle />
+            <button className='blind' id='profile_remove' onClick = {onRemoveClick}> Remove </button>
+            </label>
           </form>
         </div>
 

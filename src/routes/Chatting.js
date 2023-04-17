@@ -28,7 +28,7 @@ function Chatting({ userObj }) {
         .filter((data) => data.text || data.attachmentUrl); // text 또는 attachmentUrl key가 없는 원소들은 제외
       setChats(newArray);
     });
-  }, []);
+  }, [userObj.uid]);
 
   const onChange = e =>{
     e.preventDefault();
@@ -87,11 +87,12 @@ function Chatting({ userObj }) {
     setAttachment("");
   }
 
+
   
   return (
     <>
     
-    <body className='chatting-body'>
+    <div className='chatting-body'>
   <header>
   <div className="status_bar">
     <div className="left_item">
@@ -111,7 +112,7 @@ function Chatting({ userObj }) {
   <div className="title_bar">
     <h1>{friendName}</h1>
     <div className="left_item"><Link to = "/chats"><i className="fa-solid fa-angle-left"></i></Link></div>
-    <div className="right_item"><a href="#"><i className="fa-solid fa-magnifying-glass"></i><i className="fa-solid fa-bars"></i></a></div>
+    <div className="right_item"><Link><i className="fa-solid fa-magnifying-glass"></i><i className="fa-solid fa-bars"></i></Link></div>
   </div>
   </header>
 
@@ -125,7 +126,7 @@ function Chatting({ userObj }) {
       </div>
       <div className="chat_box other">
         <div className="other_info">
-          <a href="#"><span className="chatting_profile_img empty"></span></a>
+          <Link><span className="chatting_profile_img empty"></span></Link>
           <span className="chatting_profile_name">{friendName}</span>
         </div>
         <span className="chat">And this is an answer</span>
@@ -133,9 +134,9 @@ function Chatting({ userObj }) {
         <span className="chat">And this is an answer</span>
         <span className="chat_time"><span>17</span>:<span>33</span></span>
       </div>
-      <div>
+      <div className='chat_box my' >
       {chats.map((chat) => (
-        <div key={chat.id}>
+        <div key={chat.id} className='chat' >
           <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} userObj={userObj} />
         </div>
       ))}
@@ -154,8 +155,8 @@ function Chatting({ userObj }) {
             <label htmlFor="upload-file" className="blind">채팅 입력</label>
             <input type="text" id="chatting" className="text_field" value = {chat} onChange={onChange}/>
             <input type="submit" />
-            <span className="emoticon_btn"><a href="#"><i className="fa-regular fa-face-smile"></i></a></span>
-            <span className="voice_btn"><a href="#"><i className="fa-solid fa-microphone"></i></a></span>
+            <span className="emoticon_btn"><Link><i className="fa-regular fa-face-smile"></i></Link></span>
+            <span className="voice_btn"><Link><i className="fa-solid fa-microphone"></i></Link></span>
             {attachment &&(
               <div className='attachment'>
                 <img className='attachment_img' src={attachment} width='100' height='100' alt=""/>
@@ -166,7 +167,7 @@ function Chatting({ userObj }) {
       </form>
     </footer>
     
-    </body>
+    </div>
 
     </>
   )
