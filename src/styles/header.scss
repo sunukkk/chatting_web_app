@@ -8,11 +8,10 @@
     height: 64px;
     display:flex;
     flex-direction: column;
-    padding: 0 15px;
+    background-color: #fff;
     box-sizing: border-box;
     z-index: 100;
     color: #000;
-    background-color: #fff;
     
     &.chatting{
       height: 32px;
@@ -68,7 +67,7 @@
     justify-content: space-between;
     align-items: center;
     height: 62.5%;
-
+    padding: 0 10px;
 
     >*{
       flex:1;

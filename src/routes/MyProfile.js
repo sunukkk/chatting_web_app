@@ -5,7 +5,7 @@ import { db, storage } from '../fbase';
 import {onSnapshot, deleteField, deleteDoc, setDoc, doc } from 'firebase/firestore';
 
 import '../styles/profile.scss'
-import { FaCheckCircle, FaFileUpload, FaTimes, FaTimesCircle, FaUserAlt } from 'react-icons/fa';
+import { FaCheckCircle, FaComment, FaFileUpload, FaPencilAlt, FaTimes, FaTimesCircle, FaUserAlt } from 'react-icons/fa';
 import Header from '../components/Header';
 
 
@@ -16,20 +16,23 @@ function MyProfile({userObj}) {
   const [newProfileMessage, setNewProfileMessage] = useState("");
   const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL);
   const [newBgImg, setNewBgImg] = useState("");
+ 
+  console.log(document.querySelector('.edit_button'))
 
-
-
-  console.log(userObj)
-  
   const onDisplayNameChange = e => {
     const {target: {value}} = e;
     setNewDisplayName(value);
+    document.querySelector('.toggle_edit').classList.add('active');
+    document.querySelector('.profile_name').classList.add('active');
+    document.querySelector('.profile_message').classList.add('active');
   };
 
   const onProfileMessageChange = (e) =>{
     const {target: {value}} = e;
     setNewProfileMessage(value)
-    
+    document.querySelector('.toggle_edit').classList.add("active");
+    document.querySelector('.profile_name').classList.add('active');
+    document.querySelector('.profile_message').classList.add('active');
   }
   const onEditClick = async () => {
     try {
@@ -44,6 +47,9 @@ function MyProfile({userObj}) {
           message: newProfileMessage,
         });
       } 
+      document.querySelector('.toggle_edit').classList.remove("active");
+      document.querySelector('.profile_name').classList.remove('active');
+      document.querySelector('.profile_message').classList.remove('active');
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -255,22 +261,30 @@ function MyProfile({userObj}) {
           <input type="mail" className="profile_email" value={userObj.email} />
           <input type="text" className="profile_message" placeholder="What's on your mind" value={newProfileMessage ? `${newProfileMessage}` : ''} onChange={onProfileMessageChange}/>
           <ul className="profile_menu">
-          <li>
-            <button>
-              <span className="icon">
-                <i className="fa-regular fa-comment"></i>
-              </span>
-              My Chatroom
+            <li>
+              <button>
+                <span className="icon">
+                  <FaComment />
+                </span>
+                My Chatroom
               </button>
-          </li>
-          <li>
-            <button onClick = {onEditClick}>
-              <span className="icon">
-                <i className="fa-solid fa-pencil"></i>
-              </span>
-              Edit Profile
-            </button>
-          </li>
+            </li>
+            <li className='edit_container'>
+              <div className='toggle_edit'>
+                <button className='edit_button'onClick = {onEditClick}>
+                  <span className="icon">
+                    <FaPencilAlt />
+                  </span>
+                  Edit Profile
+                </button>
+                <button className='edit_button' onClick = {onEditClick}>
+                  <span className="icon">
+                    <FaCheckCircle />
+                  </span>
+                  Confirm
+                </button>
+              </div>
+            </li>
           </ul>
         </div>
       </section>

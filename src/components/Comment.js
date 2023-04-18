@@ -13,11 +13,14 @@ function Comment(props) {
   const [newComment, setNewComment] = useState(text)
 
   const createdAtDate = new Date(createdAt)
-  const chatHour = createdAtDate.getHours();
-  const chatMin = createdAtDate.getMinutes();
+  let chatHour = createdAtDate.getHours();
+    if (chatHour < 10) chatHour = '0' + chatHour
+  let chatMin = createdAtDate.getMinutes();
+    if (chatMin < 10) chatMin = '0' + chatMin
+  
 
   const onDeleteClick = async (id) => {
-    const ok = window.confirm("삭제하시겠습니까?");
+    const ok = window.confirm("Delete?");
     if (ok) {
       try {
         await deleteDoc(doc(db, userObj.uid, id));
@@ -45,14 +48,14 @@ function Comment(props) {
   
     await updateDoc(newCommentRef, {
       text: newComment,
-      //createdAt: Date.now()  //채팅내용을 수정할때 최하단으로 이동하고싶으면 주석 풀기
+      //createdAt: Date.now()b  //채팅내용을 수정할때 최하단으로 이동하고싶으면 주석 풀기
     });
     
     setEditing(false)
   }
 
-  const ChatClick = (event) => {
-    const chatCommentForm = event.target.closest('.chat_container').querySelector('.comment_form');
+  const ChatClick = (e) => {
+    const chatCommentForm = e.target.closest('.chat_container').querySelector('.comment_form');
     if (chatCommentForm) {
       if (chatCommentForm.classList.contains('active')) {
         chatCommentForm.classList.remove('active');
@@ -62,7 +65,6 @@ function Comment(props) {
     }
   }
 
-  
   return (
     <>
     <div className="chat_container" onClick={ChatClick}>
@@ -71,10 +73,10 @@ function Comment(props) {
           <form onSubmit={onSubmit} className='comment_edit_form'>
             <input className='comment_edit_textbox' type="text" onChange={onChange} value={newComment} />
             <label htmlFor="comment_button_edit" className='comment_button_edit'><FaPencilAlt />
-              <button id='comment_buton_cancel' className='blind'>Edit</button>
+              <button id='comment_button_edit' className='blind'>Edit</button>
             </label>
-            <label htmlFor="comment_buton_cancel" className='comment_buton_cancel'><FaTimes />
-              <button id='comment_buton_cancel' className='blind' onClick={toggleEditing}>Cancel</button>
+            <label htmlFor="comment_button_cancel" className='comment_button_cancel'><FaTimes />
+              <button id='comment_button_cancel' className='blind' onClick={toggleEditing}>Cancel</button>
             </label>
           </form>
 
@@ -86,8 +88,8 @@ function Comment(props) {
           {isOwner && (
             <>
             <form className='comment_form' onSubmit={onSubmit}>
-              <label htmlFor="comment_button_edit" className='comment_button_edit'><FaPencilAlt />
-                <button className='blind' id ='comment_button_edit' onClick={toggleEditing}>Edit chat</button>
+              <label htmlFor="comment_edit_button" className='comment_edit_button' onClick={toggleEditing}><FaPencilAlt />
+                <button className='blind' id ='comment_edit_button' >Edit chat</button>
               </label>
               <label htmlFor="comment_button_delete" className='comment_button_delete'><FaTimes />
                 <button className='blind' id='comment_button_delete' onClick={() => onDeleteClick(id)}>Delete chat</button>

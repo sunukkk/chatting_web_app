@@ -2,13 +2,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/profile.scss'
 
-import { FaTimes  } from 'react-icons/fa';
+import { FaComment, FaTimes  } from 'react-icons/fa';
 import Header from '../components/Header';
 
 function Profile() {
-  const { name, email, profileImg, profileBg } = useLocation().state;
+   const { friendName, friendEmail, profileImg, profileBg, friendId } = useLocation().state;
 
-  
+   console.log(useLocation().state)
   return (
     <>
     <body>
@@ -27,15 +27,15 @@ function Profile() {
         </div>
 
         <div className="profile_cont">
-          <input type="text" className="profile_name" placeholder="What's your name?" value={name}/>
-          <input type="mail" className="profile_email" value={email} />
+          <input type="text" className="profile_name" placeholder="What's your name?" value={friendName}/>
+          <input type="mail" className="profile_email" value={friendEmail} />
 
           <ul className="profile_menu">
           <li>
             <button>
-              <Link to={`/chatting`} state = {{friendName: name}}>
+              <Link to={`/chatting`} state = {{friendId: friendId, friendName: friendName,friendEmail: friendEmail, profileImg: profileImg, profileBg: profileBg}}>
               <span className="icon">
-                <i className="fa-regular fa-comment"></i>
+                <FaComment />
               </span>
               Chatroom
               </Link>

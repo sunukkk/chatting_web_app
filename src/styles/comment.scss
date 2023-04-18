@@ -15,7 +15,7 @@
       visibility: visible;
     }
 
-    .comment_button_edit{
+    .comment_edit_button{
       color: #1faf5b;
     }
 
@@ -30,12 +30,21 @@
   justify-content: center;
   
   .comment_edit_textbox{
-    width: 120px;
+    width: 100%;
     border:none;
-    background-color: #ffba6c;
-    &:focus, &:active{
+    background-color: #ffcb90;
+
+    &:focus,
+    &:active{
       outline: none;
       background: #ffd09b;
     }
+  }
+  .comment_button_edit{
+    color: #1faf5b;
+  }
+  .comment_button_cancel{
+    color: #f54949;
+  }
 }
-}
+

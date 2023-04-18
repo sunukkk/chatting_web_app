@@ -63,13 +63,11 @@ console.log('friends->', friends )
         <ul>
           {friends.map((friends, index) => 
             <li key={index} className='friend_list'>
-            <Link className='friend_profile' to={'/profile'} state = {{name : friends.name, email : friends.email, profileImg : friends.profileImg, profileBg : friends.profileBg}}>
+            <Link className='friend_profile' to={'/profile'} state = {{friendId: friends.id, friendName: friends.name,friendEmail: friends.email, profileImg: friends.profileImg, profileBg: friends.profileBg}}>
               <div className="profile_row empty" style = {{backgroundImage : `url(${friends.profileImg})`}}>
                 <div className="profile_name"><span>{friends.name}</span></div>
                 <div className="profile_messages">{truncate(friends.catchPhrase, 20)}</div>
               </div>
-              
-              
             </Link>
           </li>
           )}

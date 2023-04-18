@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/header.scss'
 import { Link } from 'react-router-dom'
 import { FaBatteryHalf, FaBluetooth, FaMoon, FaPlane, FaWifi } from 'react-icons/fa'
+
 function Header({left, title, span, right, isTransparent}) {
   if(left === undefined){left = ''}
   if(title === undefined){title = ''}
