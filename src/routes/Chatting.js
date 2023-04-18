@@ -14,8 +14,7 @@ import { FaAngleLeft, FaMicrophone, FaPaperPlane, FaPlus, FaRegSmile, FaTimes } 
 function Chatting({ userObj }) {
     
   const { friendName, friendEmail, profileImg, profileBg, friendId } = useLocation().state;
-  console.log(useLocation().state)
-
+  
   const [chat, setChat] = useState("");
   const [chats, setChats] = useState([]);
   
@@ -128,7 +127,7 @@ function Chatting({ userObj }) {
       <div className='chat_box my' >
       {chats.map((chat) => (
         <div key={chat.id} className='chat' >
-          <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} userObj={userObj} />
+          <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} userObj={userObj} friendId={friendId} />
         </div>
       ))}
       </div>

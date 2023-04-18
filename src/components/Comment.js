@@ -8,32 +8,36 @@ import '../styles/comment.scss'
 
 
 function Comment(props) {
-  const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, userObj} = props;
+  const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, userObj, friendId} = props;
   const [editing, setEditing] = useState(false)  
   const [newComment, setNewComment] = useState(text)
 
   const createdAtDate = new Date(createdAt)
+
   let chatHour = createdAtDate.getHours();
     if (chatHour < 10) chatHour = '0' + chatHour
   let chatMin = createdAtDate.getMinutes();
     if (chatMin < 10) chatMin = '0' + chatMin
-  
 
-  const onDeleteClick = async (id) => {
-    const ok = window.confirm("Delete?");
-    if (ok) {
-      try {
-        await deleteDoc(doc(db, userObj.uid, id));
-        if (attachmentUrl !== "") {
-          const desertRef = ref(storage, attachmentUrl);
-          await deleteObject(desertRef);
+    const onDeleteClick = async (chatid) => {
+      const ok = window.confirm("Delete?");
+      if (ok) {
+        try {
+          const chatRef = doc(db, `${friendId} ${userObj.uid}`, chatid);
+          await deleteDoc(chatRef);
+          if (attachmentUrl !== "") {
+            const desertRef = ref(storage, attachmentUrl);
+            await deleteObject(desertRef);
+          }
+        } catch (error) {
+          console.error("Error removing document: ", error);
         }
-      } catch (error) {
-        console.error("Error removing document: ", error);
       }
-    }
-  }
+    };
+    
+    
 
+    
   const toggleEditing = () => setEditing((prev) => !prev)
   
   const onChange = e =>{
@@ -44,7 +48,7 @@ function Comment(props) {
   const onSubmit = async (e) => {
     e.preventDefault();
  
-    const newCommentRef = doc(db, userObj.uid, id);
+    const newCommentRef = doc(db, `${friendId} ${userObj.uid}`, id);
   
     await updateDoc(newCommentRef, {
       text: newComment,
@@ -73,10 +77,10 @@ function Comment(props) {
           <form onSubmit={onSubmit} className='comment_edit_form'>
             <input className='comment_edit_textbox' type="text" onChange={onChange} value={newComment} />
             <label htmlFor="comment_button_edit" className='comment_button_edit'><FaPencilAlt />
-              <button id='comment_button_edit' className='blind'>Edit</button>
+              <input class='blind' type='submit' id='comment_button_edit' className='blind' value='Edit'/>
             </label>
-            <label htmlFor="comment_button_cancel" className='comment_button_cancel'><FaTimes />
-              <button id='comment_button_cancel' className='blind' onClick={toggleEditing}>Cancel</button>
+            <label htmlFor="comment_button_cancel" className='comment_button_cancel' onClick={toggleEditing}><FaTimes />
+              <button id='comment_button_cancel' className='blind' >Cancel</button>
             </label>
           </form>
 
@@ -94,6 +98,7 @@ function Comment(props) {
               <label htmlFor="comment_button_delete" className='comment_button_delete'><FaTimes />
                 <button className='blind' id='comment_button_delete' onClick={() => onDeleteClick(id)}>Delete chat</button>
               </label>
+
 
             </form>              
             </>
