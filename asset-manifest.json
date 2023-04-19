@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/kakao/static/css/main.51538242.css",
-    "main.js": "/kakao/static/js/main.d7e2691b.js",
-    "static/media/bg_default.png": "/kakao/static/media/bg_default.82687b4e75ad8b89fa96.png",
-    "index.html": "/kakao/index.html",
-    "main.51538242.css.map": "/kakao/static/css/main.51538242.css.map",
-    "main.d7e2691b.js.map": "/kakao/static/js/main.d7e2691b.js.map"
+    "main.css": "/chatting_web_app/static/css/main.1824d52f.css",
+    "main.js": "/chatting_web_app/static/js/main.ee878c2f.js",
+    "static/media/bg_default.png": "/chatting_web_app/static/media/bg_default.82687b4e75ad8b89fa96.png",
+    "index.html": "/chatting_web_app/index.html",
+    "main.1824d52f.css.map": "/chatting_web_app/static/css/main.1824d52f.css.map",
+    "main.ee878c2f.js.map": "/chatting_web_app/static/js/main.ee878c2f.js.map"
   },
   "entrypoints": [
-    "static/css/main.51538242.css",
-    "static/js/main.d7e2691b.js"
+    "static/css/main.1824d52f.css",
+    "static/js/main.ee878c2f.js"
   ]
 }
