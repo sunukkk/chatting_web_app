@@ -30,6 +30,11 @@ function Chatting({ userObj }) {
       setChats(newArray);
     });
 
+    window.scroll({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+    
    }, [userObj.uid]);
 
 

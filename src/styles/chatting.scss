@@ -30,6 +30,7 @@
 .chatting-main{
   display:flex;
   flex-direction: column;
+  justify-content: flex-end;
   min-height: 90vh;
   background:linear-gradient(#fff 0%, #ffba6c 100%);
   padding: 0 5px;
