@@ -96,7 +96,7 @@ function Chatting({ userObj }) {
     setAttachment("");
   }
   
-
+console.log('chat----------', chats)
 
   return (
     <>
@@ -127,7 +127,13 @@ function Chatting({ userObj }) {
       <div className='chat_box my' >
       {chats.map((chat) => (
         <div key={chat.id} className='chat' >
-          <Comment chatObj={chat} isOwner={chat.creatorId === userObj.uid} createdAt={chat.createdAt} userObj={userObj} friendId={friendId} />
+          <Comment
+            chatObj={chat}
+            isOwner={chat.creatorId === userObj.uid}
+            createdAt={chat.createdAt}
+            userObj={userObj}
+            friendId={friendId}
+          />
         </div>
       ))}
       </div>

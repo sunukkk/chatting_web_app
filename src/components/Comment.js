@@ -11,30 +11,34 @@ function Comment(props) {
   const {chatObj: {text, id, attachmentUrl}, isOwner, createdAt, userObj, friendId} = props;
   const [editing, setEditing] = useState(false)  
   const [newComment, setNewComment] = useState(text)
-
+ 
   const createdAtDate = new Date(createdAt)
+console.log('props.id----------------', props.chatObj.id)
+console.log('id-------------------', id)
 
   let chatHour = createdAtDate.getHours();
     if (chatHour < 10) chatHour = '0' + chatHour
   let chatMin = createdAtDate.getMinutes();
     if (chatMin < 10) chatMin = '0' + chatMin
 
-    const onDeleteClick = async (chatid) => {
-      const ok = window.confirm("Delete?");
-      if (ok) {
-        try {
-          const chatRef = doc(db, `${friendId} ${userObj.uid}`, chatid);
-          await deleteDoc(chatRef);
-          if (attachmentUrl !== "") {
-            const desertRef = ref(storage, attachmentUrl);
-            await deleteObject(desertRef);
-          }
-        } catch (error) {
-          console.error("Error removing document: ", error);
-        }
-      }
-    };
+  const onDeleteClick = async e => {
+    e.preventDefault();
     
+    const ok = window.confirm("Delete?");
+    if (ok) {
+      try {
+        const chatRef = doc(db, `${friendId} ${userObj.uid}`, id);
+        await deleteDoc(chatRef);
+        if (attachmentUrl !== "") {
+          const desertRef = ref(storage, attachmentUrl);
+          await deleteObject(desertRef);
+        }
+      } catch (error) {
+        console.error("Error removing document: ", error);
+      }
+    }
+  };
+
     
 
     
@@ -95,8 +99,8 @@ function Comment(props) {
               <label htmlFor="comment_edit_button" className='comment_edit_button' onClick={toggleEditing}><FaPencilAlt />
                 <button className='blind' id ='comment_edit_button' >Edit chat</button>
               </label>
-              <label htmlFor="comment_button_delete" className='comment_button_delete'><FaTimes />
-                <button className='blind' id='comment_button_delete' onClick={() => onDeleteClick(id)}>Delete chat</button>
+              <label htmlFor="comment_button_delete" className='comment_button_delete' onClick={onDeleteClick}><FaTimes />
+                <button className='blind' id='comment_button_delete' >Delete chat</button>
               </label>
 
 
