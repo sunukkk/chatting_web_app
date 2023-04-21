@@ -11,7 +11,8 @@ import Header from '../components/Header';
 
 
 function MyProfile({userObj}) {
-  
+  console.log('userObj------->', userObj)
+
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [newProfileMessage, setNewProfileMessage] = useState("");
   const [newProfileImg, setNewProfileImg] = useState(userObj.photoURL);
