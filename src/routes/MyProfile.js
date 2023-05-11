@@ -272,7 +272,7 @@ function MyProfile({userObj}) {
             </li>
             <li className='edit_container'>
               <div className='toggle_edit'>
-                <button className='edit_button'onClick = {onEditClick}>
+                <button className='edit_button' onClick = {onEditClick}>
                   <span className="icon">
                     <FaPencilAlt />
                   </span>
