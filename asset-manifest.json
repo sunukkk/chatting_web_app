@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/chatting_web_app/static/css/main.1824d52f.css",
-    "main.js": "/chatting_web_app/static/js/main.ee878c2f.js",
+    "main.js": "/chatting_web_app/static/js/main.0a450f0a.js",
     "static/media/bg_default.png": "/chatting_web_app/static/media/bg_default.82687b4e75ad8b89fa96.png",
     "index.html": "/chatting_web_app/index.html",
     "main.1824d52f.css.map": "/chatting_web_app/static/css/main.1824d52f.css.map",
-    "main.ee878c2f.js.map": "/chatting_web_app/static/js/main.ee878c2f.js.map"
+    "main.0a450f0a.js.map": "/chatting_web_app/static/js/main.0a450f0a.js.map"
   },
   "entrypoints": [
     "static/css/main.1824d52f.css",
-    "static/js/main.ee878c2f.js"
+    "static/js/main.0a450f0a.js"
   ]
 }
