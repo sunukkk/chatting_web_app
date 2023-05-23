@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+<hr/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Chatting Web app
 
-## Available Scripts
+카카오톡과 같은 구성의 영화 앱입니다.<br />
+Axios를 사용해 외부 API(TMDB, Firebase)의 데이터를 전달받아 보여줍니다.<br />
+Firebase로 회원가입, 로그인 및 소셜로그인 기능을 구현했습니다.
+프로필 설정 및 채팅 기능에서 CRUD를 구현했습니다.<br />
 
-In the project directory, you can run:
+<hr/>
 
-### `npm start`
+<br />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 제작에 사용된 기술목록
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/Javascript-EEE?style=for-the-badge&logo=javascript&logoColor=F7DF1E"/></a> 
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/html5-EEE?style=for-the-badge&logo=html5&logoColor=E34F26"/></a> 
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/css3-EEE?style=for-the-badge&logo=css3&logoColor=1572B6"/></a> 
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/sass-EEE?style=for-the-badge&logo=sass&logoColor=CC6699"/></a>
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/react-EEE?style=for-the-badge&logo=react&logoColor=61DAFB"/></a>
+<a href="/" target="_blank"><img src="https://img.shields.io/badge/firebase-EEE?style=for-the-badge&logo=firebase&logoColor=FFCA28"/></a>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br />
 
-### `npm test`
+### 주요 내용
+- React로 만든 웹앱 입니다.
+- 프로필 사진 및 프로필 배경 이미지를 수정할 수 있습니다.
+- Firebase를 사용해 NoSQL 기반 서버리스 구조의 웹앱입니다.
+- Firebase Authentication를 사용해 회원가입 및 로그인, 소셜로그인 기능을 구현했습니다.
+- Firebase Database, Storage를 사용해 각계정의 프로필 및 프로필 배경사진 기능을 구현했습니다.
+   - 앱에는 10명의 친구목록이 있습니다. 친구목록의 정보는 Jsonplaceholder에서 가져온 fake데이터파일을 일부 수정했습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br />
 
-### `npm run build`
+### 사용된 주요 라이브러리
+- axios : api통신을 위해 사용했습니다.
+- gh-pages: GitHub 페이지에 정적 리소스를 호스팅했습니다.
+- react-router-dom 으로 React 기반 SPA의 라우팅을 관리합니다.
+- fontawesome : 아이콘을 위해 사용한 라이브러리입니다.
+- uuid : 각각의 채팅이 저장될때, 고유한 임의이 키값을 갖도록 하기위해 사용했습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 특이사항
+- FirebaseAuth 에서 기본적으로 제공하는 uid에는 프로필사진을 저장합니다.
+- 프로필의 배경사진의 이미지는 Firebase Storage에 저장되고, <br />
+  Firebase DB에 배경사진이미지의 주소가 저장됩니다.
+- Firebase DB에는 다음과 같은 구조 프로필사진 및 프로필 메시지가 저장됩니다.
+```
+    Firebase DB 
+      └── 컬렉션(계정) 
+         ├── 문서(프로필메시지)
+         │    └── 필드(메시지)
+         └─── 문서(프로필배경)
+              └── 필드(프로필배경이미지주소)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```         
+  
+<br />
 
-### `npm run eject`
+감사합니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<hr/>
